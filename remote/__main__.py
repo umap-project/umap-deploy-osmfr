@@ -140,6 +140,15 @@ def systemctl(*cmd):
     run('systemctl {}'.format(' '.join(cmd)))
 
 
+@minicli.cli
+def install_db_dump():
+    """
+    Write a daily script to dump the database.
+    """
+    put('remote/dump_db.sh', '/etc/cron.daily/dump_umap_db')
+    run('chmod +x /etc/cron.daily/dump_umap_db')
+
+
 @minicli.wrap
 def wrapper(hostname, configpath):
     with connect(hostname=hostname, configpath=configpath):
