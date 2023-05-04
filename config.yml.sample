@@ -1,5 +1,0 @@
-domain: cartes.data.gouv.fr
-processes: 8
-version: 1.0.0-rc.1
-custom:
-  settings: path/to/local.py
