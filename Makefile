@@ -79,10 +79,8 @@ update: build/env ## Update umap python package.
 		$(PIP) install umap-project==${VERSION} --upgrade
 	fi
 	@if [ -v "$(CUSTOM_PACKAGES)" ]; then $(PIP) install ${CUSTOM_PACKAGES}; fi
-	$(CMD) migrate
 	$(CMD) collectstatic --noinput --verbosity 0
-	# Compress even if COMPRESS_ENABLED=False in local.py.
-	$(CMD) compress --force
+	$(CMD) migrate
 
 deploy: update restart ## Update and restart.
 
