@@ -1,6 +1,7 @@
-# umap-deploy
+# umap-deploy-osmfr
 
-My own scripts for deploying uMap.
+My own scripts for deploying uMap on OSM-fr server (and the related dev server
+on https://umap.yohanboniface.me).
 
 ## Usage
 
