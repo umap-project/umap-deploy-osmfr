@@ -32,7 +32,7 @@ system: ## Install system dependencies
 	$(WITH_SUDO) mkdir --parents /etc/umap
 	$(WITH_SUDO) chown umap:users /etc/umap/
 
-db:  # Create the database.
+db:  ## Create the database.
 	-$(WITH_POSTGRES) createuser umap
 	-$(WITH_POSTGRES) createdb umap -O umap
 	$(WITH_POSTGRES) psql umap -c \"CREATE EXTENSION IF NOT EXISTS postgis\"
@@ -70,7 +70,7 @@ http: build/uwsgi.ini build/http.conf ## Configure Nginx and uWsgi
 restart: ## Restart nginx and uwsgi.
 	$(WITH_SUDO) systemctl restart uwsgi nginx
 
-bootstrap: system db venv customize update http restart  # Bootstrap server.
+bootstrap: system db venv customize update http restart  ## Bootstrap server.
 
 update: build/env ## Update umap python package.
 	@if [[ $VERSION == git* ]]; then
