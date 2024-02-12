@@ -47,10 +47,10 @@ ifdef CUSTOM_SETTINGS
 	rsync --checksum --rsync-path="sudo --user umap rsync" --progress --archive $(CUSTOM_SETTINGS) $(HOST):/etc/umap/umap.conf
 endif
 ifdef CUSTOM_STATICS
-	then rsync --checksum --rsync-path="sudo --user umap rsync" --progress --archive $(CUSTOM_STATICS) $(HOST):/srv/umap/theme/static
+	rsync --checksum --rsync-path="sudo --user umap rsync" --progress --archive $(CUSTOM_STATICS) $(HOST):/srv/umap/theme/static
 endif
 ifdef CUSTOM_TEMPLATES
-	then rsync --checksum --rsync-path="sudo --user umap rsync" --progress --archive $(CUSTOM_TEMPLATES) $(HOST):/srv/umap/theme/templates
+	rsync --checksum --rsync-path="sudo --user umap rsync" --progress --archive $(CUSTOM_TEMPLATES) $(HOST):/srv/umap/theme/templates/
 endif
 
 build/uwsgi.ini: conf/uwsgi.ini .env .env.${FLAVOUR}
@@ -78,7 +78,7 @@ update: build/env ## Update umap python package.
 	else
 		$(PIP) install umap-project==${VERSION} --upgrade
 	fi
-	@if [ -v "$(CUSTOM_PACKAGES)" ]; then $(PIP) install ${CUSTOM_PACKAGES}; fi
+	@if [[ "$(CUSTOM_PACKAGES)" ]]; then $(PIP) install ${CUSTOM_PACKAGES}; fi
 	$(CMD) collectstatic --noinput --verbosity 0
 	$(CMD) migrate
 
