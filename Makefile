@@ -47,9 +47,11 @@ ifdef CUSTOM_SETTINGS
 	rsync --checksum --rsync-path="sudo --user umap rsync" --progress --archive $(CUSTOM_SETTINGS) $(HOST):/etc/umap/umap.conf
 endif
 ifdef CUSTOM_STATICS
+	$(WITH_USER) mkdir /srv/umap/theme
 	rsync --checksum --rsync-path="sudo --user umap rsync" --progress --archive $(CUSTOM_STATICS) $(HOST):/srv/umap/theme/static
 endif
 ifdef CUSTOM_TEMPLATES
+	$(WITH_USER) mkdir /srv/umap/theme
 	rsync --checksum --rsync-path="sudo --user umap rsync" --progress --archive $(CUSTOM_TEMPLATES) $(HOST):/srv/umap/theme/templates/
 endif
 
