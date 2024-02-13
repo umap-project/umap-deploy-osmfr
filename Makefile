@@ -1,9 +1,8 @@
 .ONESHELL:
-include .env
 ifndef FLAVOUR
-	FLAVOUR=staging
+	FLAVOUR=dev
 endif
-include .env.$(FLAVOUR)
+include local/$(FLAVOUR)
 RUN:=ssh $(HOST)
 WITH_SUDO:=$(RUN) sudo
 WITH_USER:=$(RUN) sudo -u umap
@@ -42,23 +41,32 @@ venv: ## Create python virtualenv.
 	$(WITH_USER) python3 -m venv /srv/umap/venv
 	$(PIP) install pip wheel -U
 
-customize: ## Deploy uMap customization files (settings, statics, templates).
-ifdef CUSTOM_SETTINGS
-	rsync --checksum --rsync-path="sudo --user umap rsync" --progress --archive $(CUSTOM_SETTINGS) $(HOST):/etc/umap/umap.conf
-endif
+settings: ## Deploy custom settings
+	$(SUDO_RSYNC) settings/$(FLAVOUR).py $(HOST):/etc/umap/umap.conf
+.PHONY: settings
+
+default: ## Deploy default env file in /etc/default/umap
+	$(SUDO_RSYNC) default/$(FLAVOUR) $(HOST):/etc/default/umap
+.PHONY: default
+
+statics: ## Deploy custom statics
 ifdef CUSTOM_STATICS
 	$(WITH_USER) mkdir /srv/umap/theme
 	rsync --checksum --rsync-path="sudo --user umap rsync" --progress --archive $(CUSTOM_STATICS) $(HOST):/srv/umap/theme/static
 endif
+
+templates: ## Deploy custom templates
 ifdef CUSTOM_TEMPLATES
 	$(WITH_USER) mkdir /srv/umap/theme
 	rsync --checksum --rsync-path="sudo --user umap rsync" --progress --archive $(CUSTOM_TEMPLATES) $(HOST):/srv/umap/theme/templates/
 endif
 
-build/uwsgi.ini: conf/uwsgi.ini .env .env.${FLAVOUR}
+customize: settings statics templates ## Deploy uMap customization files (settings, statics, templates).
+
+build/uwsgi.ini: conf/uwsgi.ini local/${FLAVOUR}
 	envsubst < "conf/uwsgi.ini" > "build/uwsgi.ini"
 
-build/http.conf: conf/http.conf .env .env.${FLAVOUR}
+build/http.conf: conf/http.conf local/${FLAVOUR}
 	envsubst '$${DOMAIN}' < "conf/http.conf" > "build/http.conf"
 
 http: build/uwsgi.ini build/http.conf ## Configure Nginx and uWsgi
@@ -74,7 +82,7 @@ restart: ## Restart nginx and uwsgi.
 
 bootstrap: system db venv customize update http restart  ## Bootstrap server.
 
-update: build/env ## Update umap python package.
+update: ## Update umap python package and deps.
 	@if [[ $VERSION == git* ]]; then
 		$(PIP) install ${VERSION} --upgrade
 	else
@@ -85,15 +93,3 @@ update: build/env ## Update umap python package.
 	$(CMD) migrate
 
 deploy: update restart ## Update and restart.
-
-build/env: SHELL := python3
-build/env: .env .env.${FLAVOUR}
-	from pathlib import Path
-	import os
-	FLAVOUR = os.environ["FLAVOUR"]
-	env = dict(l.split("=", maxsplit=1) for l in Path(".env").read_text().split("\n") if l.startswith("EXPORT_"))
-	flavour = dict(l.split("=", maxsplit=1) for l in Path(f".env.{FLAVOUR}").read_text().split("\n") if l.startswith("EXPORT_"))
-	env.update(flavour)
-	with Path("build/env").open("w") as f:
-	    f.write("\n".join(f"{k}={v}" for k, v in env.items()) + "\n")
-.PHONY: build/env
