@@ -45,8 +45,8 @@ settings: ## Deploy custom settings
 	$(SUDO_RSYNC) settings/$(FLAVOUR).py $(HOST):/etc/umap/umap.conf
 .PHONY: settings
 
-default: ## Deploy default env file in /etc/default/umap
-	$(SUDO_RSYNC) default/$(FLAVOUR) $(HOST):/etc/default/umap
+env: ## Deploy default env file in /srv/umap/env
+	$(SUDO_RSYNC) default/$(FLAVOUR) $(HOST):/srv/umap/env
 .PHONY: default
 
 statics: ## Deploy custom statics
