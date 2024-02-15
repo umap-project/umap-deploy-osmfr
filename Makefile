@@ -9,10 +9,9 @@ WITH_USER:=$(RUN) sudo -u umap
 WITH_POSTGRES:=$(RUN) sudo -u postgres
 WITH_ENV:=$(RUN) "set -o allexport; source /srv/umap/env; set +o allexport; sudo --user umap --preserve-env"
 SUDO_RSYNC=rsync --checksum --rsync-path="sudo rsync" --progress --archive
-CLI:=$(RUN) "set -a; . /srv/umap/env; set +a; /srv/umap/venv/bin/umap"
 VENV=/srv/umap/venv/
 PIP:=$(WITH_USER) $(VENV)bin/pip
-CMD:=$(WITH_USER) $(VENV)bin/umap
+CMD:=$(WITH_ENV) $(VENV)bin/umap
 PROCESSES?=2  # Default value.
 # Export env to child processes (eg. python scripts).
 export
