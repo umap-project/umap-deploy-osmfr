@@ -69,12 +69,19 @@ build/uwsgi.ini: conf/uwsgi.ini local/${FLAVOUR}
 build/http.conf: conf/http.conf local/${FLAVOUR}
 	envsubst '$${DOMAIN}' < "conf/http.conf" > "build/http.conf"
 
-http: build/uwsgi.ini build/http.conf ## Configure Nginx and uWsgi
+build/https.conf: conf/https.conf local/${FLAVOUR}
+	envsubst '$${DOMAIN}' < "conf/https.conf" > "build/https.conf"
+
+http: build/uwsgi.ini build/http.conf build/https.conf ## Configure Nginx and uWsgi
 	$(SUDO_RSYNC) conf/uwsgi_params $(HOST):/srv/umap/uwsgi_params
 	$(SUDO_RSYNC) build/uwsgi.ini $(HOST):/etc/uwsgi/apps-enabled/umap.ini
 	$(SUDO_RSYNC) conf/umap-nginx.conf $(HOST):/etc/nginx/snippets/umap.conf
-	# TODO letsencrypt/certbot.
+	# In OSM France server, https is not handle in the VM but in a global proxy
+ifeq ($(HTTPS), 1)
+	$(SUDO_RSYNC) build/https.conf $(HOST):/etc/nginx/sites-enabled/umap
+else
 	$(SUDO_RSYNC) build/http.conf $(HOST):/etc/nginx/sites-enabled/umap
+endif
 	$(WITH_SUDO) systemctl restart nginx
 
 restart: ## Restart nginx and uwsgi.

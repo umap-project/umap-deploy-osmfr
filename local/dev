@@ -4,3 +4,4 @@ HOST=umap.dev
 VERSION=2.0.0a3
 CUSTOM_PACKAGES=sentry-sdk
 CUSTOM_TEMPLATES=templates/
+HTTPS=1
