@@ -6,7 +6,7 @@ DEBUG = False
 # TEMPLATE_DEBUG = DEBUG
 STATIC_ROOT = "/srv/umap/static_root"
 MEDIA_ROOT = "/srv/umap/media_root"
-#
+
 ADMINS = getaddresses([env("DJANGO_ADMINS")])
 MANAGERS = ADMINS
 ALLOWED_HOSTS = ["umap.openstreetmap.fr", "127.0.0.1", "dev.umap.openstreetmap.fr"]
