@@ -32,7 +32,7 @@ AUTHENTICATION_BACKENDS = (
     "social_core.backends.github.GithubOAuth2",
     "social_core.backends.bitbucket.BitbucketOAuth",
     "social_core.backends.twitter_oauth2.TwitterOAuth2",
-    "social_core.backends.openstreetmap.OpenStreetMapOAuth",
+    "social_core.backends.openstreetmap_oauth2.OpenStreetMapOAuth2",
     "django.contrib.auth.backends.ModelBackend",
 )
 SOCIAL_AUTH_GITHUB_KEY = env("SOCIAL_AUTH_GITHUB_KEY", default="")
