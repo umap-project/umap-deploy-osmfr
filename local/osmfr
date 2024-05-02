@@ -1,6 +1,6 @@
 DOMAIN=umap.openstreetmap.fr
 PROCESSES=4
 HOST=umap.osmfr
-VERSION=2.1.3
+VERSION=2.2.0
 CUSTOM_PACKAGES=sentry-sdk
 CUSTOM_TEMPLATES=templates/
