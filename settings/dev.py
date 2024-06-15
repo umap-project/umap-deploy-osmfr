@@ -86,6 +86,26 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 UMAP_CUSTOM_TEMPLATES = "/srv/umap/theme/templates"
 
+UMAP_IMPORTERS = {
+    "geodatamine": {},
+    "overpass": {"url": "https://overpass-api.de/api/interpreter"},
+    "communesfr": {},
+    "datasets": {
+        "choices": [
+            {
+                "label": "Régions",
+                "url": "https://france-geojson.gregoiredavid.fr/repo/regions.geojson",
+                "format": "geojson",
+            },
+            {
+                "label": "Départements",
+                "url": "https://france-geojson.gregoiredavid.fr/repo/departements.geojson",
+                "format": "geojson",
+            },
+        ]
+    },
+}
+
 import sentry_sdk
 
 sentry_sdk.init(
