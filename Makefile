@@ -56,9 +56,10 @@ endif
 
 templates: ## Deploy custom templates
 ifdef CUSTOM_TEMPLATES
-	$(WITH_USER) mkdir /srv/umap/theme
+	$(WITH_USER) mkdir --parents /srv/umap/theme
 	rsync --checksum --rsync-path="sudo --user umap rsync" --progress --archive $(CUSTOM_TEMPLATES) $(HOST):/srv/umap/theme/templates/
 endif
+.PHONY: templates
 
 customize: settings statics templates ## Deploy uMap customization files (settings, statics, templates).
 
