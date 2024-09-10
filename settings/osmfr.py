@@ -115,6 +115,12 @@ UMAP_IMPORTERS = {
     },
 }
 
+UMAP_HOST_INFOS = {
+    "name": "OpenStreetMap France",
+    "url": "https://www.openstreetmap.fr/",
+    "email": "contact@umap-project.org",
+}
+
 import sentry_sdk
 
 sentry_sdk.init(

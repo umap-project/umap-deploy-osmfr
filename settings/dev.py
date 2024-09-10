@@ -106,6 +106,12 @@ UMAP_IMPORTERS = {
     },
 }
 
+UMAP_HOST_INFOS = {
+    "name": "Enix",
+    "url": "https://enix.io/fr/legal/",
+    "email": "contact@umap-project.org",
+}
+
 import sentry_sdk
 
 sentry_sdk.init(
@@ -119,3 +125,4 @@ sentry_sdk.init(
     profiles_sample_rate=0.1,
     environment=env("SENTRY_ENVIRONMENT", default="dev"),
 )
+
