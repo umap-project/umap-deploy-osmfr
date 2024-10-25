@@ -102,6 +102,21 @@ UMAP_IMPORTERS = {
                 "url": "https://france-geojson.gregoiredavid.fr/repo/departements.geojson",
                 "format": "geojson",
             },
+            {
+                "label": "Arrondissements de Paris",
+                "url": "https://geo.api.gouv.fr/communes?codeParent=75056&type=arrondissement-municipal&format=geojson&geometry=contour",
+                "format": "geojson",
+            },
+            {
+                "label": "Arrondissements de Marseille",
+                "url": "https://geo.api.gouv.fr/communes?codeParent=13055&type=arrondissement-municipal&format=geojson&geometry=contour",
+                "format": "geojson",
+            },
+            {
+                "label": "Arrondissements de Lyon",
+                "url": "https://geo.api.gouv.fr/communes?codeParent=69123&type=arrondissement-municipal&format=geojson&geometry=contour",
+                "format": "geojson",
+            },
         ]
     },
 }
@@ -111,6 +126,7 @@ UMAP_HOST_INFOS = {
     "url": "https://enix.io/fr/legal/",
     "email": "contact@umap-project.org",
 }
+UMAP_PURGATORY_ROOT = '/srv/umap/purgatory'
 
 import sentry_sdk
 

@@ -1,7 +1,7 @@
 DOMAIN=dev.umap-project.org
 PROCESSES=4
 HOST=umap.dev
-VERSION=2.6.3
+VERSION=2.7.0
 CUSTOM_PACKAGES=sentry-sdk
 CUSTOM_TEMPLATES=templates/
 HTTPS=1
