@@ -90,10 +90,10 @@ restart: ## Restart nginx and uwsgi.
 bootstrap: system db venv customize update http restart  ## Bootstrap server.
 
 update: ## Update umap python package and deps.
-	@if [[ $VERSION == git* ]]; then
-		$(PIP) install ${VERSION} --upgrade
-	else
-		$(PIP) install umap-project==${VERSION} --upgrade
+	@if echo "$(VERSION)" | grep -q '^@'; then \
+		$(PIP) install git+https://github.com/umap-project/umap${VERSION} --upgrade --force-reinstall; \
+	else \
+		$(PIP) install umap-project==${VERSION} --upgrade; \
 	fi
 	@if [[ "$(CUSTOM_PACKAGES)" ]]; then $(PIP) install ${CUSTOM_PACKAGES}; fi
 	$(CMD) collectstatic --noinput --verbosity 0
