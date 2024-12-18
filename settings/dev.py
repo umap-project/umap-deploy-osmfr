@@ -126,7 +126,8 @@ UMAP_HOST_INFOS = {
     "url": "https://enix.io/fr/legal/",
     "email": "contact@umap-project.org",
 }
-UMAP_PURGATORY_ROOT = '/srv/umap/purgatory'
+UMAP_LABEL_KEYS = ["name", "title", "nom"]
+
 
 import sentry_sdk
 
@@ -141,4 +142,3 @@ sentry_sdk.init(
     profiles_sample_rate=0.1,
     environment=env("SENTRY_ENVIRONMENT", default="dev"),
 )
-

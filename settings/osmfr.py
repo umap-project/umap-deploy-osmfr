@@ -135,8 +135,7 @@ UMAP_HOST_INFOS = {
     "url": "https://www.openstreetmap.fr/",
     "email": "contact@umap-project.org",
 }
-UMAP_PURGATORY_ROOT = '/srv/umap/purgatory'
-
+UMAP_LABEL_KEYS = ["name", "title", "nom"]
 
 import sentry_sdk
 
