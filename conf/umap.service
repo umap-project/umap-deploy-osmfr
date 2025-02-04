@@ -1,0 +1,25 @@
+[Unit]
+Description=umap
+After=network.target
+Requires=postgresql.service
+
+[Service]
+Type=simple
+User=umap
+
+WorkingDirectory=/srv/umap/
+PrivateTmp=true
+
+EnvironmentFile=/srv/umap/env
+
+ExecStart=/srv/umap/venv/bin/uvicorn \
+    --proxy-headers \
+    --uds /srv/umap/uvicorn.sock \
+    --no-access-log \
+    umap.asgi:application
+ExecReload=/bin/kill -HUP ${MAINPID}
+RestartSec=1
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
