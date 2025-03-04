@@ -85,7 +85,11 @@ endif
 	$(WITH_SUDO) systemctl restart nginx
 
 restart: ## Restart nginx and uwsgi.
+ifeq ($(FLAVOUR), dev)
+	$(WITH_SUDO) systemctl restart umap nginx
+else
 	$(WITH_SUDO) systemctl restart uwsgi nginx
+endif
 
 bootstrap: system db venv customize update http restart  ## Bootstrap server.
 

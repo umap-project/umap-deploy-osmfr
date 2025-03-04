@@ -1,4 +1,3 @@
-import os
 from email.utils import getaddresses
 
 from umap.settings.base import *  # pylint: disable=W0614,W0401
@@ -31,8 +30,8 @@ SOCIAL_AUTH_GITHUB_KEY = env("SOCIAL_AUTH_GITHUB_KEY", default="")
 SOCIAL_AUTH_GITHUB_SECRET = env("SOCIAL_AUTH_GITHUB_SECRET", default="")
 # We need email to associate with other Oauth providers
 SOCIAL_AUTH_GITHUB_SCOPE = ["user:email"]
-SOCIAL_AUTH_TWITTER_KEY = env("SOCIAL_AUTH_TWITTER_KEY", default="")
-SOCIAL_AUTH_TWITTER_SECRET = env("SOCIAL_AUTH_TWITTER_SECRET", default="")
+SOCIAL_AUTH_TWITTER_OAUTH2_KEY = env("SOCIAL_AUTH_TWITTER_OAUTH2_KEY", default="")
+SOCIAL_AUTH_TWITTER_OAUTH2_SECRET = env("SOCIAL_AUTH_TWITTER_OAUTH2_SECRET", default="")
 MIDDLEWARE += ("social_django.middleware.SocialAuthExceptionMiddleware",)
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 SOCIAL_AUTH_BACKEND_ERROR_URL = "/"
@@ -85,6 +84,9 @@ EMAIL_PORT = 587
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 UMAP_CUSTOM_TEMPLATES = "/srv/umap/theme/templates"
+DEPRECATED_AUTHENTICATION_BACKENDS = [
+    "social_core.backends.twitter_oauth2.TwitterOAuth2"
+]
 
 UMAP_IMPORTERS = {
     "geodatamine": {},
@@ -127,6 +129,7 @@ UMAP_HOST_INFOS = {
     "email": "contact@umap-project.org",
 }
 UMAP_LABEL_KEYS = ["name", "title", "nom"]
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
 import sentry_sdk

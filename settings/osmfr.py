@@ -136,6 +136,9 @@ UMAP_HOST_INFOS = {
     "email": "contact@umap-project.org",
 }
 UMAP_LABEL_KEYS = ["name", "title", "nom"]
+DEPRECATED_AUTHENTICATION_BACKENDS = [
+    "social_core.backends.twitter_oauth2.TwitterOAuth2"
+]
 
 import sentry_sdk
 
