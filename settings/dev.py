@@ -92,6 +92,7 @@ UMAP_IMPORTERS = {
     "geodatamine": {},
     "overpass": {"url": "https://overpass-api.de/api/interpreter"},
     "communesfr": {},
+    "banfr": {},
     "datasets": {
         "choices": [
             {
@@ -130,7 +131,7 @@ UMAP_HOST_INFOS = {
 }
 UMAP_LABEL_KEYS = ["name", "title", "nom"]
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-
+REALTIME_ENABLED = True
 
 import sentry_sdk
 
