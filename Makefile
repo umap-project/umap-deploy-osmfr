@@ -108,3 +108,6 @@ deploy: update restart ## Update and restart.
 service:
 	rsync --checksum --rsync-path="sudo rsync" conf/umap.service $(HOST):/etc/systemd/system/umap.service
 	$(WITH_SUDO) systemctl enable umap.service
+
+cron:
+	rsync --checksum --rsync-path="sudo rsync" conf/daily.sh $(HOST):/etc/cron.daily/umap
