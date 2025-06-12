@@ -89,7 +89,7 @@ DEPRECATED_AUTHENTICATION_BACKENDS = [
 ]
 
 UMAP_IMPORTERS = {
-    "templates": {},
+    "opendata": {},
     "geodatamine": {},
     "overpass": {"url": "https://overpass-api.de/api/interpreter"},
     "communesfr": {},
