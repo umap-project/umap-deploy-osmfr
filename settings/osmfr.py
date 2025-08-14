@@ -95,6 +95,7 @@ UMAP_MAPS_PER_PAGE_OWNER = 30
 UMAP_CUSTOM_TEMPLATES = "/srv/umap/theme/templates"
 
 UMAP_IMPORTERS = {
+    "opendata": {},
     "geodatamine": {"name": "GéoDataMine (thèmes OSM)"},
     "overpass": {"url": "https://overpass-api.de/api/interpreter"},
     "communesfr": {"name": "Communes France"},
