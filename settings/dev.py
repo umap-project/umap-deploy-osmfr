@@ -56,7 +56,7 @@ ALLOWED_HOSTS = [
 ]
 UMAP_EXCLUDE_DEFAULT_MAPS = True
 UMAP_KEEP_VERSIONS = 5
-UMAP_GZIP = False
+UMAP_GZIP = True
 
 LOGGING = {
     "version": 1,
