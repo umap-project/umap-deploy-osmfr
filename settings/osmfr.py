@@ -30,7 +30,6 @@ WSGI_APPLICATION = "umap.wsgi.application"
 
 AUTHENTICATION_BACKENDS = (
     "social_core.backends.github.GithubOAuth2",
-    "social_core.backends.bitbucket.BitbucketOAuth",
     "social_core.backends.twitter_oauth2.TwitterOAuth2",
     "social_core.backends.openstreetmap_oauth2.OpenStreetMapOAuth2",
     "django.contrib.auth.backends.ModelBackend",
