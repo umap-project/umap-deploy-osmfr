@@ -95,9 +95,9 @@ bootstrap: system db venv customize update http restart  ## Bootstrap server.
 
 update: ## Update umap python package and deps.
 	@if echo "$(VERSION)" | grep -q '^@'; then \
-		$(PIP) install git+https://github.com/umap-project/umap${VERSION} --upgrade --force-reinstall; \
+		$(PIP) install git+https://github.com/umap-project/umap${VERSION}[deploy] --upgrade --force-reinstall; \
 	else \
-		$(PIP) install umap-project==${VERSION} --upgrade; \
+		$(PIP) install umap-project==${VERSION}[deploy] --upgrade; \
 	fi
 	@if [[ "$(CUSTOM_PACKAGES)" ]]; then $(PIP) install ${CUSTOM_PACKAGES}; fi
 	$(CMD) collectstatic --noinput --verbosity 0
