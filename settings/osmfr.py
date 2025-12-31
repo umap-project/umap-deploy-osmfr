@@ -10,6 +10,8 @@ MEDIA_ROOT = "/srv/umap/media_root"
 ADMINS = getaddresses([env("DJANGO_ADMINS")])
 MANAGERS = ADMINS
 ALLOWED_HOSTS = ["umap.openstreetmap.fr", "127.0.0.1", "dev.umap.openstreetmap.fr"]
+CSRF_TRUSTED_ORIGINS = ["https://umap.openstreetmap.fr"]
+
 DATABASES = {
     "default": {
         "ENGINE": "django.contrib.gis.db.backends.postgis",
@@ -45,6 +47,7 @@ MIDDLEWARE += ("social_django.middleware.SocialAuthExceptionMiddleware",)
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 SOCIAL_AUTH_BACKEND_ERROR_URL = "/"
 SOCIAL_AUTH_LOGIN_ERROR_URL = "/"
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
 UMAP_DEMO_PK = 1
 # UMAP_SHOWCASE_PK = 4783

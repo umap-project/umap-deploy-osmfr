@@ -25,7 +25,7 @@ help: ## This help.
 
 system: ## Install system dependencies
 	$(WITH_SUDO) apt update
-	$(WITH_SUDO) apt install -y python3 python3-dev python3-venv wget nginx uwsgi uwsgi-plugin-python3 postgresql gcc postgis libpq-dev
+	$(WITH_SUDO) apt install -y python3 python3-dev python3-venv wget nginx postgresql gcc postgis libpq-dev
 	-$(WITH_SUDO) useradd -m -d /srv/umap -s /bin/bash -b /srv/ umap --system -c \"uMap System User\"
 	$(WITH_SUDO) mkdir --parents /etc/umap
 	$(WITH_SUDO) chown umap:users /etc/umap/
@@ -63,18 +63,13 @@ endif
 
 customize: settings statics templates ## Deploy uMap customization files (settings, statics, templates).
 
-build/uwsgi.ini: conf/uwsgi.ini local/${FLAVOUR}
-	envsubst < "conf/uwsgi.ini" > "build/uwsgi.ini"
-
 build/http.conf: conf/http.conf local/${FLAVOUR}
 	envsubst '$${DOMAIN}' < "conf/http.conf" > "build/http.conf"
 
 build/https.conf: conf/https.conf local/${FLAVOUR}
 	envsubst '$${DOMAIN}' < "conf/https.conf" > "build/https.conf"
 
-http: build/uwsgi.ini build/http.conf build/https.conf ## Configure Nginx and uWsgi
-	$(SUDO_RSYNC) conf/uwsgi_params $(HOST):/srv/umap/uwsgi_params
-	$(SUDO_RSYNC) build/uwsgi.ini $(HOST):/etc/uwsgi/apps-enabled/umap.ini
+http: build/http.conf build/https.conf ## Configure Nginx
 	$(SUDO_RSYNC) conf/umap-nginx.conf $(HOST):/etc/nginx/snippets/umap.conf
 	# In OSM France server, https is not handle in the VM but in a global proxy
 ifeq ($(HTTPS), 1)
@@ -84,12 +79,8 @@ else
 endif
 	$(WITH_SUDO) systemctl restart nginx
 
-restart: ## Restart nginx and uwsgi.
-ifeq ($(FLAVOUR), dev)
+restart: ## Restart nginx and umap.
 	$(WITH_SUDO) systemctl restart umap nginx
-else
-	$(WITH_SUDO) systemctl restart uwsgi nginx
-endif
 
 bootstrap: system db venv customize update http restart  ## Bootstrap server.
 
