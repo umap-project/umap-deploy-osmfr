@@ -11,6 +11,7 @@ ADMINS = getaddresses([env("DJANGO_ADMINS")])
 MANAGERS = ADMINS
 ALLOWED_HOSTS = ["umap.openstreetmap.fr", "127.0.0.1", "dev.umap.openstreetmap.fr"]
 CSRF_TRUSTED_ORIGINS = ["https://umap.openstreetmap.fr"]
+FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o755
 
 DATABASES = {
     "default": {
