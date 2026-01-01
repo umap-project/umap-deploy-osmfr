@@ -102,3 +102,6 @@ service:
 
 cron:
 	rsync --checksum --rsync-path="sudo rsync" conf/daily.sh $(HOST):/etc/cron.daily/umap
+
+logs:
+	$(WITH_SUDO) journalctl --unit umap --follow --lines 100

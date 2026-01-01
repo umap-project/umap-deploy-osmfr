@@ -6,6 +6,7 @@ Requires=postgresql.service
 [Service]
 Type=simple
 User=umap
+Group=users
 
 WorkingDirectory=/srv/umap/
 PrivateTmp=true
