@@ -7,7 +7,7 @@ RUN:=ssh $(HOST)
 WITH_SUDO:=$(RUN) sudo
 WITH_USER:=$(RUN) sudo -u umap
 WITH_POSTGRES:=$(RUN) sudo -u postgres
-WITH_ENV:=$(RUN) "set -o allexport; source /srv/umap/env; set +o allexport; sudo --user umap --preserve-env"
+WITH_ENV:=$(RUN) "sudo --user umap sh -c 'set -o allexport; . /srv/umap/env; set +o allexport; exec \"\$$@\"' sh"
 SUDO_RSYNC=rsync --checksum --rsync-path="sudo rsync" --progress --archive
 VENV=/srv/umap/venv/
 PIP:=$(WITH_USER) $(VENV)bin/pip
@@ -86,9 +86,9 @@ bootstrap: system db venv customize update http restart  ## Bootstrap server.
 
 update: ## Update umap python package and deps.
 	@if echo "$(VERSION)" | grep -q '^@'; then \
-		$(PIP) install git+https://github.com/umap-project/umap${VERSION}[deploy] --upgrade --force-reinstall; \
+		$(PIP) install "umap-project[deploy]@git+https://github.com/umap-project/umap${VERSION}" --upgrade --force-reinstall; \
 	else \
-		$(PIP) install umap-project[deploy]==${VERSION} --upgrade; \
+		$(PIP) install umap-project[deploy,sync]==${VERSION} --upgrade --no-cache-dir; \
 	fi
 	@if [[ "$(CUSTOM_PACKAGES)" ]]; then $(PIP) install ${CUSTOM_PACKAGES}; fi
 	$(CMD) collectstatic --noinput --verbosity 0

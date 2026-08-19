@@ -133,6 +133,7 @@ UMAP_HOST_INFOS = {
 UMAP_LABEL_KEYS = ["name", "title", "nom"]
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 REALTIME_ENABLED = True
+AJAX_PROXY_CACHE_DIR = "/tmp"
 
 import sentry_sdk
 

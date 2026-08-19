@@ -107,12 +107,12 @@ UMAP_IMPORTERS = {
         "choices": [
             {
                 "label": "Régions",
-                "url": "https://france-geojson.gregoiredavid.fr/repo/regions.geojson",
+                "url": "https://data-interne.ademe.fr/data-fair/api/v1/datasets/regions/data-files/Regions.geojson",
                 "format": "geojson",
             },
             {
                 "label": "Départements",
-                "url": "https://france-geojson.gregoiredavid.fr/repo/departements.geojson",
+                "url": "https://data-interne.ademe.fr/data-fair/api/v1/datasets/departements/data-files/Departements.geojson",
                 "format": "geojson",
             },
             {
@@ -143,6 +143,7 @@ UMAP_LABEL_KEYS = ["name", "title", "nom"]
 DEPRECATED_AUTHENTICATION_BACKENDS = [
     "social_core.backends.twitter_oauth2.TwitterOAuth2"
 ]
+AJAX_PROXY_CACHE_DIR = "/tmp"
 
 import sentry_sdk
 
